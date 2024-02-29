@@ -8,7 +8,7 @@
     "start": "node dist/index.js",
     "preserve": "yarn build",
     "serve": "tsc -w & nodemon -r dotenv/config dist/index.js",
-    "dev": "tsc -w & nodemon -r dotenv/config dist/index.js"
+    "dev": "nodemon"
   },
   "license": "MIT",
   "dependencies": {
@@ -40,6 +40,25 @@
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tsconfig": "^7.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "tscpaths": "^0.0.9",
     "typescript": "^5.3.3"
+  },
+  "nodemonConfig": {
+    "ext": "ts,json",
+    "watch": [
+      "./src/*"
+    ],
+    "exec": "ts-node -r dotenv/config -r tsconfig-paths/register ./src/index.ts",
+    "execMap": {
+      "ts": "node --require ts-node/register"
+    },
+    "ignore": [
+      "src/**/*.test.ts",
+      "src/**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ]
   }
 }
