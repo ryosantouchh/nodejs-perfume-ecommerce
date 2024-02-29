@@ -7,6 +7,7 @@ type config = {
   host: string
   dialect: Dialect
   models: string
+  port: number
 }
 
 const config: Record<string, config> = {
@@ -17,6 +18,7 @@ const config: Record<string, config> = {
     host: process.env.DB_HOST || 'localhost',
     dialect: process.env.DB_DIALECT as Dialect,
     models: 'src/entities',
+    port: 3306,
   },
 }
 
