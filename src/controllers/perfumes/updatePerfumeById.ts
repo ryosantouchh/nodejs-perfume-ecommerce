@@ -1,16 +1,19 @@
 import { findPerfumeById } from '@services'
 import { NextFunction, Request, Response } from 'express'
 
-export const getPerfumeById = async (
+export const updatePerfumeById = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const { perfumeId } = req.params
-    const perfumeById = await findPerfumeById(perfumeId)
+    const updatedData = req.body
 
-    res.status(200).json({ data: perfumeById, message: 'get all perfumes' })
+    const perfumeById = await findPerfumeById(perfumeId)
+    await perfumeById.update({ ...updatedData })
+
+    res.status(200).json({ data: perfumeById, message: 'get all perfumes!' })
   } catch (error) {
     next(error)
   }
