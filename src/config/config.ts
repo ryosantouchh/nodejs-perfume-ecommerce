@@ -17,7 +17,7 @@ const config: Record<string, config> = {
     database: process.env.DB_NAME || 'db',
     host: process.env.DB_HOST || 'localhost',
     dialect: process.env.DB_DIALECT as Dialect,
-    models: 'src/entities',
+    models: 'src/models',
     port: 3306,
   },
 }
