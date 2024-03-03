@@ -1,12 +1,19 @@
 import sequelize from '@database/init'
 import { DataTypes } from 'sequelize'
 import { v4 as uuid4 } from 'uuid'
+import UserModel from './user.model'
 
 const OrderStatusEnum = ['paid', 'pending', 'shipped', 'refunded']
 
 const OrderModel = sequelize.define(
   'Order',
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true,
+    },
     order_status: {
       type: DataTypes.ENUM(...OrderStatusEnum),
       allowNull: false,
@@ -42,6 +49,14 @@ const OrderModel = sequelize.define(
     tracking_number: {
       type: DataTypes.STRING,
     },
+    user_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      references: {
+        model: UserModel,
+        key: 'id',
+      },
+    },
   },
   {
     getterMethods: {
@@ -72,6 +87,9 @@ const OrderModel = sequelize.define(
       trackingNumber() {
         return this.getDataValue('tracking_number')
       },
+      userId() {
+        return this.getDataValue('user_id')
+      },
     },
     setterMethods: {
       orderStatus(value) {
@@ -100,6 +118,9 @@ const OrderModel = sequelize.define(
       },
       trackingNumber(value) {
         this.setDataValue('tracking_number', value)
+      },
+      userId(value) {
+        this.setDataValue('user_id', value)
       },
     },
   }

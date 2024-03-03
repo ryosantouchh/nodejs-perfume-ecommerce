@@ -1,10 +1,17 @@
 import sequelize from '@database/init'
+import { UserRole } from '@types'
 import { DataTypes } from 'sequelize'
 import { v4 as uuid4 } from 'uuid'
 
 const UserModel = sequelize.define(
   'User',
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true,
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -13,33 +20,31 @@ const UserModel = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    user_role: {
+      type: DataTypes.ENUM(...[UserRole.Admin, UserRole.Customer]),
+      allowNull: false,
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     phone_number: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     sub_district: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     district: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     country: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     postal_code: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
   },
   {
@@ -49,6 +54,9 @@ const UserModel = sequelize.define(
       },
       password() {
         return this.getDataValue('password')
+      },
+      userRole() {
+        return this.getDataValue('user_role')
       },
       email() {
         return this.getDataValue('email')
@@ -78,6 +86,9 @@ const UserModel = sequelize.define(
       },
       password(value) {
         this.setDataValue('password', value)
+      },
+      userRole(value) {
+        this.setDataValue('user_role', value)
       },
       email(value) {
         this.setDataValue('email', value)

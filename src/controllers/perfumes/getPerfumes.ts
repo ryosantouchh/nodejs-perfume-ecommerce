@@ -10,7 +10,6 @@ export const getPerfumes = async (
   next: NextFunction
 ) => {
   try {
-    console.log('errer')
     const query = queryPerfume(req.query)
     const perfumes = await PerfumeModel.findAndCountAll(
       query as unknown as FindOptions<SQLPerfumeQuery>

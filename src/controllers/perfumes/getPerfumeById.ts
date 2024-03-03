@@ -10,7 +10,7 @@ export const getPerfumeById = async (
     const { perfumeId } = req.params
     const perfumeById = await findPerfumeById(perfumeId)
 
-    res.status(200).json({ data: perfumeById, message: 'get all perfumes' })
+    res.status(200).json({ data: perfumeById, message: 'get perfume!' })
   } catch (error) {
     next(error)
   }
