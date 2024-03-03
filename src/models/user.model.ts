@@ -1,4 +1,5 @@
 import sequelize from '@database/init'
+import { UserRole } from '@types'
 import { DataTypes } from 'sequelize'
 import { v4 as uuid4 } from 'uuid'
 
@@ -11,6 +12,10 @@ const UserModel = sequelize.define(
     },
     password: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    userRole: {
+      type: DataTypes.ENUM(...[UserRole.Admin, UserRole.Customer]),
       allowNull: false,
     },
     email: {
@@ -50,6 +55,9 @@ const UserModel = sequelize.define(
       password() {
         return this.getDataValue('password')
       },
+      userRole() {
+        return this.getDataValue('user_role')
+      },
       email() {
         return this.getDataValue('email')
       },
@@ -78,6 +86,9 @@ const UserModel = sequelize.define(
       },
       password(value) {
         this.setDataValue('password', value)
+      },
+      userRole(value) {
+        this.setDataValue('user_role', value)
       },
       email(value) {
         this.setDataValue('email', value)
