@@ -7,6 +7,12 @@ const PerfumeNotes = ['woody', 'floral', 'citrus', 'aromatic']
 const PerfumeModel = sequelize.define(
   'Perfume',
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true,
+    },
     perfume_name: {
       type: DataTypes.STRING,
       allowNull: false,
